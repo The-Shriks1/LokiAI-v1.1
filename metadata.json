@@ -1,0 +1,6 @@
+{
+  "name": "LokiAI",
+  "description": "LokiAI transforms ordinary hardware into purpose-built AI systems through a direct, high-performance deployment process.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

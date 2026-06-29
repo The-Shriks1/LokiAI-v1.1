@@ -1,0 +1,192 @@
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/geist@5.0.1/index.min.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/geist-mono@5.0.1/index.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-bg: #000000;
+  --color-brand-text: #F4F0E8;
+  --color-brand-surface: #1E1E20;
+  --color-brand-accent: #2A4237;
+
+  --font-sans: "Geist", system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "Geist Mono", monospace;
+  
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom globally useful styles */
+html, body, #root {
+  background-color: #000000;
+  color: #F4F0E8;
+  font-family: var(--font-sans);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 1024px) {
+  html, body, #root {
+    overflow: hidden !important;
+  }
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050A0A;
+}
+::-webkit-scrollbar-thumb {
+  background: #2B2B2B;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0F3F2C;
+}
+
+/* Technical grid background */
+.tech-grid {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(43, 43, 43, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(43, 43, 43, 0.05) 1px, transparent 1px);
+}
+
+.tech-grid-fine {
+  background-size: 15vw 15vw;
+  background-image:
+    linear-gradient(to right, rgba(15, 63, 44, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 63, 44, 0.05) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 40%, black 0%, transparent 75%);
+}
+
+/* CRT style scanline for device screen if needed */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+}
+
+/* One quiet light pool behind the device column, not a diagonal-corner-bloom template look */
+.ambient-glow {
+  background-image:
+    radial-gradient(46rem 34rem at 78% 50%, rgba(31, 61, 46, 0.09), transparent 65%);
+}
+
+/* Fine film-grain texture so flat dark panels don't read as a plain CSS gradient */
+.bg-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+/* Card / stat-tile language shared by the dashboard surfaces (laptop screen, model lists) */
+.surface-card {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* 3D Laptop CSS system */
+.laptop-viewport {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.laptop-3d {
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.laptop-lid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-style: preserve-3d;
+  transform-origin: bottom center;
+}
+
+.laptop-base {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  transform-style: preserve-3d;
+  transform-origin: top center;
+}
+
+/* Individual key cap rendering */
+.keyboard-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1.5px;
+}
+
+.key-cap {
+  background: linear-gradient(180deg, #262626 0%, #121212 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1.5px solid rgba(0, 0, 0, 0.7);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4), inset 0 0.5px 0 rgba(255, 255, 255, 0.04);
+  border-radius: 1.5px;
+  color: rgba(255, 255, 255, 0.25);
+  font-family: var(--font-mono);
+  font-size: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s, transform 0.1s;
+}
+
+.key-cap:active {
+  background: #0f0f0f;
+  transform: translateZ(-0.5px);
+  border-bottom-width: 0.5px;
+  box-shadow: 0 0.5px 0.5px rgba(0, 0, 0, 0.3);
+}
+
+/* Glassmorphism surfaces for the refined dashboard */
+.glass-panel {
+  background: rgba(8, 8, 8, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03), 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.glow-emerald {
+  box-shadow: 0 0 15px rgba(31, 61, 46, 0.3);
+}
+
+.glow-emerald-text {
+  text-shadow: 0 0 8px rgba(31, 61, 46, 0.6);
+}
+
+/* Shine animation overlay for screen */
+.screen-shine {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.02) 40%, rgba(255, 255, 255, 0.07) 50%, rgba(255, 255, 255, 0.02) 60%, rgba(255, 255, 255, 0) 100%);
+  background-size: 200% 200%;
+  animation: shine-sweep 8s ease-in-out infinite;
+}
+
+@keyframes shine-sweep {
+  0% { background-position: -100% -100%; }
+  100% { background-position: 200% 200%; }
+}
+
+
