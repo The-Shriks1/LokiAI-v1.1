@@ -313,7 +313,7 @@ export default function App() {
     switch (activeChapter) {
       case 'landing':
         return (
-          <div className="flex flex-col items-start justify-center space-y-6 w-full max-w-5xl mx-auto z-50 text-left py-12">
+          <div className="flex flex-col items-start justify-center space-y-4 lg:space-y-6 w-full max-w-5xl mx-auto z-50 text-left py-4 lg:py-12">
             <span className="text-[11px] font-mono tracking-[0.25em] text-[#8da090] font-bold uppercase drop-shadow-md">
               LokiAI // Secure Edge Intelligence
             </span>
@@ -323,11 +323,11 @@ export default function App() {
               <span className="italic font-light text-neutral-300">directly on your device.</span>
             </h1>
 
-            <p className="text-[15px] leading-relaxed text-neutral-300 font-normal max-w-xl drop-shadow-lg">
+            <p className="text-[14px] sm:text-[15px] leading-relaxed text-neutral-300 font-normal max-w-xl drop-shadow-lg">
               Zero cloud latency. 100% offline autonomy. LokiAI seamlessly brings neural networks from Hugging Face to your mobile hardware — no setup required.
             </p>
 
-            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
+            <div className="pt-2 lg:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
               <button
                 onClick={handleNextChapter}
                 className="px-7 py-3 bg-[#1F3D2E] hover:bg-[#2a5c47] text-[#F4F0E8] text-[12px] font-mono font-semibold tracking-widest uppercase transition-colors duration-150 flex items-center justify-center space-x-2 rounded border border-[#2a5c47] cursor-pointer shadow-xl w-full sm:w-auto"
@@ -351,21 +351,21 @@ export default function App() {
 
       case 'hero':
         return (
-          <div className="flex flex-col space-y-6">
-            <div className="space-y-2">
+          <div className="flex flex-col space-y-4 lg:space-y-6">
+            <div className="space-y-1 lg:space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 font-bold uppercase block">
                 LokiAI
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-[54px] font-serif font-normal tracking-tight text-brand-text leading-[1.1]">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-serif font-normal tracking-tight text-brand-text leading-[1.1]">
                 Bring AI models <br />to the edge, <span className="italic font-light text-neutral-400">instantly.</span>
               </h1>
             </div>
 
-            <p className="text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
+            <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
               LokiAI allows you to deploy fully local neural networks from Hugging Face directly onto your mobile hardware over WiFi. Zero setup, zero latency, and complete offline autonomy.
             </p>
 
-            <div className="py-1">
+            <div className="py-0.5">
               <p className="text-[11px] font-mono text-neutral-500 flex items-center space-x-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
                 <span>Move your cursor or tap to activate the local daemon.</span>
@@ -376,7 +376,7 @@ export default function App() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="pt-2 w-full sm:w-auto"
+                className="pt-1 w-full sm:w-auto"
               >
                 <button
                   onClick={handleNextChapter}
@@ -392,25 +392,25 @@ export default function App() {
 
       case 'pairing':
         return (
-          <div className="flex flex-col space-y-6">
-            <div className="space-y-2">
+          <div className="flex flex-col space-y-4 lg:space-y-6">
+            <div className="space-y-1 lg:space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 font-bold uppercase block">
                 Step 01 // Device Pairing
               </span>
-              <h2 className="text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
+              <h2 className="text-xl sm:text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
                 Establish a secure local link.
               </h2>
             </div>
 
-            <p className="text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
+            <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
               Connect your workstation and mobile device on the same local network. A simple camera scan initiates a secure handshake that maps your target hardware profile—including memory limits, GPU buffers, and CPU architectures.
             </p>
 
-            <p className="text-[13.5px] leading-relaxed text-neutral-500 font-normal max-w-xl">
+            <p className="text-[12.5px] sm:text-[13.5px] leading-relaxed text-neutral-500 font-normal max-w-xl">
               No guessing, no remote configuration. Every subsequent model selection is calibrated to these exact hardware specifications.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-3 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 pt-1 w-full sm:w-auto">
               <button
                 onClick={handlePrevChapter}
                 className="px-5 py-2.5 border border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-neutral-300 text-xs font-mono transition-colors duration-150 flex items-center justify-center space-x-2 rounded cursor-pointer w-full sm:w-auto"
@@ -433,22 +433,22 @@ export default function App() {
 
       case 'intent':
         return (
-          <div className="flex flex-col space-y-6">
-            <div className="space-y-2">
+          <div className="flex flex-col space-y-4 lg:space-y-6">
+            <div className="space-y-1 lg:space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 font-bold uppercase block">
                 Step 02 // Describe Intent
               </span>
-              <h2 className="text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
+              <h2 className="text-xl sm:text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
                 Describe your model requirements.
               </h2>
             </div>
 
-            <p className="text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
+            <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
               Specify your target task in plain English (e.g., <em className="text-brand-text">"I want real-time object detection"</em>). LokiAI queries Hugging Face to identify compatible formats—filtering out candidates that exceed your device's physical RAM boundaries.
             </p>
 
             {/* Custom Input preview */}
-            <div className="p-4 bg-brand-surface/40 border border-neutral-800/80 rounded select-none max-w-xl">
+            <div className="p-3 lg:p-4 bg-brand-surface/40 border border-neutral-800/80 rounded select-none max-w-xl">
               <p className="text-[9px] font-mono text-neutral-500 mb-1.5 uppercase font-bold tracking-wider">Your Prompt</p>
               <div className="flex items-center space-x-1.5 font-mono text-[13px]">
                 <span className="text-neutral-500">&gt;</span>
@@ -457,7 +457,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-3 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 pt-1 w-full sm:w-auto">
               <button
                 onClick={handlePrevChapter}
                 className="px-5 py-2.5 border border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-neutral-300 text-xs font-mono transition-colors duration-150 flex items-center justify-center space-x-2 rounded cursor-pointer w-full sm:w-auto"
@@ -480,17 +480,17 @@ export default function App() {
 
       case 'selection':
         return (
-          <div className="flex flex-col space-y-6">
-            <div className="space-y-2">
+          <div className="flex flex-col space-y-4 lg:space-y-6">
+            <div className="space-y-1 lg:space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 font-bold uppercase block">
                 Step 03 // Pick Model
               </span>
-              <h2 className="text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
+              <h2 className="text-xl sm:text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
                 Compare ranked neural architectures.
               </h2>
             </div>
 
-            <p className="text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
+            <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
               We rank candidate models based on benchmark performance, parameter precision, and latency bounds. Select your preferred architecture to trigger the local compiler pipeline.
             </p>
 
@@ -502,7 +502,7 @@ export default function App() {
               />
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-3">
+            <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <button
                 onClick={handlePrevChapter}
                 className="px-5 py-2.5 border border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-neutral-300 text-xs font-mono transition-colors duration-150 flex items-center justify-center space-x-2 rounded cursor-pointer"
@@ -524,22 +524,22 @@ export default function App() {
 
       case 'deployment':
         return (
-          <div className="flex flex-col space-y-6">
-            <div className="space-y-2">
+          <div className="flex flex-col space-y-4 lg:space-y-6">
+            <div className="space-y-1 lg:space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 font-bold uppercase block">
                 Step 04 // Deploying
               </span>
-              <h2 className="text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
+              <h2 className="text-xl sm:text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
                 Compile and transfer to local runtime.
               </h2>
             </div>
 
-            <p className="text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
+            <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
               LokiAI downloads the selected model binary from Hugging Face, verifies its cryptographic hash, and transfers the model weight matrix directly into the device's client-side browser memory buffer.
             </p>
 
             {/* Real deployment steps from docs/01_ARCHITECTURE.md data flow */}
-            <div className="space-y-2 border-l-2 border-neutral-800 pl-4 py-2 max-w-xl select-none">
+            <div className="space-y-1.5 border-l-2 border-neutral-800 pl-4 py-1.5 max-w-xl select-none">
               {[
                 { label: 'Download model from Hugging Face', speed: `${selectedModel?.size || '45 MB'}` },
                 { label: 'Verify SHA-256 file hash', speed: 'Passed' },
@@ -562,7 +562,7 @@ export default function App() {
               })}
             </div>
 
-            <div className="py-1">
+            <div className="py-0.5">
               <p className="text-[11px] font-mono text-neutral-500">
                 Keep this browser tab open and stay connected to the local network.
               </p>
@@ -572,22 +572,22 @@ export default function App() {
 
       case 'independence':
         return (
-          <div className="flex flex-col space-y-6">
-            <div className="space-y-2">
+          <div className="flex flex-col space-y-4 lg:space-y-6">
+            <div className="space-y-1 lg:space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 font-bold uppercase block">
                 Step 05 // Unplugged
               </span>
-              <h2 className="text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
+              <h2 className="text-xl sm:text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
                 Run fully offline, permanently.
               </h2>
             </div>
 
-            <p className="text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
+            <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
               You can now safely shut down the host dashboard. The model, execution engine, and UI are stored permanently in the device's sandboxed client storage. Zero internet connection or host laptop dependencies.
             </p>
 
             {/* Offline status banner */}
-            <div className="p-4 bg-[#1b2520] border border-[#2b3b32] rounded max-w-xl flex items-start space-x-3 select-none">
+            <div className="p-3 lg:p-4 bg-[#1b2520] border border-[#2b3b32] rounded max-w-xl flex items-start space-x-3 select-none">
               <WifiOff className="w-5 h-5 text-[#8da090] shrink-0 mt-0.5" />
               <div>
                 <p className="text-[11.5px] font-mono text-brand-text font-bold uppercase tracking-wider">
@@ -599,7 +599,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-3">
+            <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <button
                 onClick={handlePrevChapter}
                 className="px-5 py-2.5 border border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-neutral-300 text-xs font-mono transition-colors duration-150 flex items-center justify-center space-x-2 rounded cursor-pointer"
@@ -621,21 +621,21 @@ export default function App() {
 
       case 'download':
         return (
-          <div className="flex flex-col space-y-6">
-            <div className="space-y-2">
+          <div className="flex flex-col space-y-4 lg:space-y-6">
+            <div className="space-y-1 lg:space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 font-bold uppercase block">
                 Done
               </span>
-              <h2 className="text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
+              <h2 className="text-xl sm:text-3xl md:text-[40px] font-serif font-normal tracking-tight text-brand-text leading-[1.15]">
                 Local intelligence is now online.
               </h2>
             </div>
 
-            <p className="text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
+            <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
               You have completed the walk-through. You can swap models, update target specifications, or provision new edge devices at any time simply by reopening the dashboard.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-3 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 pt-1 w-full sm:w-auto">
               <a
                 href="https://universe.theshriks.space"
                 target="_blank"
@@ -766,43 +766,46 @@ export default function App() {
       <main className="flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-8 lg:gap-12 relative z-10">
 
         {/* LEFT COMPONENT COLUMN: NARRATIVE PORTION */}
-        <div className={`w-full ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center' : 'lg:w-5/12'} flex flex-col justify-center min-h-[280px] space-y-4 transition-all duration-700`} ref={narrativeRef}>
+        <div className={`w-full ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center' : 'lg:w-5/12'} flex flex-col justify-center min-h-0 lg:min-h-[280px] space-y-4 transition-all duration-700`} ref={narrativeRef}>
           {renderChapterNarrative()}
         </div>
 
         {/* RIGHT COMPONENT COLUMN: IMMERSIVE DEVICE HOUSING */}
-        <div className={`relative w-full lg:w-7/12 flex flex-nowrap items-center justify-center gap-12 sm:gap-16 lg:gap-20 xl:gap-24 py-4 min-h-[390px] lg:min-h-0 transition-opacity duration-700 ${activeChapter === 'landing' ? 'opacity-0 pointer-events-none hidden lg:flex' : 'opacity-100'}`} ref={deviceContainerRef}>
+        <div className={`relative w-full lg:w-7/12 flex items-center justify-center h-[260px] min-[400px]:h-[280px] min-[480px]:h-[320px] sm:h-[390px] lg:h-auto lg:min-h-0 transition-opacity duration-700 ${activeChapter === 'landing' ? 'opacity-0 pointer-events-none hidden lg:flex' : 'opacity-100'}`} ref={deviceContainerRef}>
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-4 sm:gap-8 lg:gap-20 xl:gap-24 scale-[0.55] min-[400px]:scale-[0.6] min-[480px]:scale-[0.7] sm:scale-[0.85] lg:scale-100 origin-center transition-all duration-300">
 
-          {/* Laptop — the dashboard, what the user is looking at on their laptop screen */}
-          <div className="hidden lg:flex flex-col items-center gap-2">
-            <LaptopFrame
-              activeChapter={activeChapter}
-              isPaired={isPairedByChapter()}
-              isScanned={isScanned}
-              userQuery={userQuery}
-              selectedModel={selectedModel}
-              deploymentProgress={deploymentProgress}
-              deploymentStepIndex={deploymentStepIndex}
-            />
-            <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-600">Laptop — Dashboard</span>
-          </div>
+            {/* Laptop — the dashboard, what the user is looking at on their laptop screen */}
+            <div className="flex flex-col items-center gap-2">
+              <LaptopFrame
+                activeChapter={activeChapter}
+                isPaired={isPairedByChapter()}
+                isScanned={isScanned}
+                userQuery={userQuery}
+                selectedModel={selectedModel}
+                deploymentProgress={deploymentProgress}
+                deploymentStepIndex={deploymentStepIndex}
+              />
+              <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-600">Laptop — Dashboard</span>
+            </div>
 
-          {/* Phone — the target device */}
-          <div className="relative flex flex-col items-center gap-2">
-            <DeviceFrame
-              isPaired={isPairedByChapter()}
-              isScanned={isScanned}
-              isDeviceActive={isDeviceActive}
-              activeChapter={activeChapter}
-              selectedModel={selectedModel}
-              deploymentProgress={deploymentProgress}
-              deploymentStepIndex={deploymentStepIndex}
-              demoType={demoType}
-              setDemoType={setDemoType}
-              onDeviceWakeup={triggerDeviceActivation}
-            />
-            <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-600">Phone — Target Device</span>
-            <TelemetryLines isVisible={activeChapter === 'pairing' && isScanned} />
+            {/* Phone — the target device */}
+            <div className="relative flex flex-col items-center gap-2">
+              <DeviceFrame
+                isPaired={isPairedByChapter()}
+                isScanned={isScanned}
+                isDeviceActive={isDeviceActive}
+                activeChapter={activeChapter}
+                selectedModel={selectedModel}
+                deploymentProgress={deploymentProgress}
+                deploymentStepIndex={deploymentStepIndex}
+                demoType={demoType}
+                setDemoType={setDemoType}
+                onDeviceWakeup={triggerDeviceActivation}
+              />
+              <span className="text-[9px] font-mono uppercase tracking-widest text-neutral-600">Phone — Target Device</span>
+              <TelemetryLines isVisible={activeChapter === 'pairing' && isScanned} />
+            </div>
+
           </div>
         </div>
 
