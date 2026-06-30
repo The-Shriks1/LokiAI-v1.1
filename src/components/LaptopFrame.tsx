@@ -254,7 +254,7 @@ export const LaptopFrame: React.FC<LaptopFrameProps> = ({
                                   ) : activeChapter === 'pairing' ? (
                                     <>
                                       <p className="text-neutral-600">&gt; adb connect</p>
-                                      <p className="text-[#84cc16]">● awaiting scanning handshake...</p>
+                                      <p className="text-[#84cc16]">● awaiting USB or scanning handshake...</p>
                                     </>
                                   ) : activeChapter === 'intent' ? (
                                     <>

@@ -308,7 +308,7 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
                       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex flex-col h-full items-center justify-center text-center space-y-2">
                         <CheckCircle2 className="w-5 h-5 text-brand-accent" />
                         <p className="text-[9px] text-neutral-200 font-bold uppercase tracking-wider">Connected</p>
-                        <p className="text-[8px] text-neutral-500 max-w-[160px] leading-snug">This tab will update on its own. Nothing to tap — keep it open.</p>
+                        <p className="text-[8px] text-neutral-500 max-w-[160px] leading-snug">The app will update on its own. Nothing to tap — keep it open.</p>
                       </motion.div>
                     )}
 
@@ -317,7 +317,7 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
                         <Wifi className="w-5 h-5 text-brand-accent animate-pulse" />
                         <p className="text-[9px] text-neutral-200 font-bold uppercase tracking-wider">Connected to dashboard</p>
                         <p className="text-[8px] text-neutral-500 max-w-[160px] leading-snug">
-                          The model picker happens on the laptop. This tab is just waiting for a deployment.
+                          The model picker happens on the laptop. The app is just waiting for a deployment.
                         </p>
                       </div>
                     )}
@@ -335,7 +335,7 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
                             transition={{ ease: 'easeOut' }}
                           />
                         </div>
-                        <p className="text-[8px] text-neutral-500">{Math.round(deploymentProgress)}% · keep this tab open</p>
+                        <p className="text-[8px] text-neutral-500">{Math.round(deploymentProgress)}% · keep the app open</p>
                       </div>
                     )}
 

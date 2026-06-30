@@ -594,7 +594,7 @@ export default function App() {
                   Running Fully Offline
                 </p>
                 <p className="text-[11px] text-neutral-400 mt-1 leading-normal">
-                  All camera frames, text inputs, and diagnostic logs remain inside the local sandboxed runtime. No network traffic is generated.
+                  All camera frames, text inputs, and diagnostic logs remain inside local app storage. No network traffic is generated.
                 </p>
               </div>
             </div>
