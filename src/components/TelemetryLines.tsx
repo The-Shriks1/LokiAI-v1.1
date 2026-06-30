@@ -20,9 +20,9 @@ interface TelemetryLinesProps {
 // Rendered as a plain in-flow chip row under the phone, not absolutely-positioned callout lines —
 // that way it can never overlap the laptop or get clipped at odd viewport widths.
 const SPECS: TelemetrySpec[] = [
-  { id: 'model', label: 'MODEL', metric: 'Redmi N8 Pro' },
+  { id: 'model', label: 'MODEL', metric: 'Your Device' },
   { id: 'cpu', label: 'CPU', metric: 'ARM64' },
-  { id: 'ram', label: 'RAM', metric: '5.5 GB' },
+  { id: 'ram', label: 'RAM', metric: '5 GB' },
   { id: 'storage', label: 'FREE', metric: '22 GB' },
 ];
 

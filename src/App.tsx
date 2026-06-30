@@ -362,7 +362,7 @@ export default function App() {
             </div>
 
             <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
-              LokiAI allows you to deploy fully local neural networks from Hugging Face directly onto your mobile hardware over USB or WiFi. Zero setup, zero latency, and complete offline autonomy.
+              LokiAI allows you to deploy fully local neural networks from Hugging Face directly onto your mobile hardware over USB or WiFi. Zero latency, complete offline autonomy.
             </p>
 
             <div className="py-0.5">
@@ -403,7 +403,7 @@ export default function App() {
             </div>
 
             <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
-              Connect via USB cable or scan QR code to establish a secure local link. This initiates a secure handshake that maps your target hardware profile—including memory limits, GPU buffers, and CPU architectures.
+              Connect via USB cable or scan a QR code to establish a secure local link. This initiates a secure handshake that maps your target hardware profile—including memory limits, GPU buffers, and CPU architectures.
             </p>
 
             <p className="text-[12.5px] sm:text-[13.5px] leading-relaxed text-neutral-500 font-normal max-w-xl">
@@ -543,8 +543,8 @@ export default function App() {
               {[
                 { label: 'Download model from Hugging Face', speed: `${selectedModel?.size || '45 MB'}` },
                 { label: 'Verify SHA-256 file hash', speed: 'Passed' },
-                { label: 'Send model file to phone via USB / local network', speed: 'Transferring' },
-                { label: 'Load on-device interface in the EdgeMind app', speed: 'Loading' },
+                { label: 'Send model file to phone via USB or local network', speed: 'Transferring' },
+                { label: 'Load on-device interface in the LokiAI app', speed: 'Loading' },
                 { label: 'Bind model to the interface', speed: 'Binding' },
                 { label: 'Write deployment config to phone', speed: 'Written' },
                 { label: 'Mark deployment complete', speed: 'Done' },
@@ -564,7 +564,7 @@ export default function App() {
 
             <div className="py-0.5">
               <p className="text-[11px] font-mono text-neutral-500">
-                Keep the EdgeMind app open while the model loads.
+                Keep the LokiAI app open on your phone.
               </p>
             </div>
           </div>
@@ -722,19 +722,44 @@ export default function App() {
 
         {/* Mobile current chapter indicator */}
         <div className="md:hidden flex items-center space-x-2">
-          <span className="text-[9px] font-mono text-neutral-500 uppercase">
-            Step {listChapters.indexOf(activeChapter) + 1}/{listChapters.length}
-          </span>
-          <span className="text-[10px] font-mono font-bold text-[#8da090] uppercase tracking-wider">
-            {activeChapter === 'hero' ? 'START' : activeChapter.toUpperCase()}
-          </span>
+          {(() => {
+            const idx = listChapters.indexOf(activeChapter);
+            if (activeChapter === 'landing' || activeChapter === 'hero' || activeChapter === 'download') {
+              return (
+                <span className="text-[10px] font-mono font-bold text-[#8da090] uppercase tracking-wider">
+                  {activeChapter === 'landing' ? 'LANDING' : activeChapter === 'hero' ? 'START' : 'DOWNLOAD'}
+                </span>
+              );
+            } else {
+              const stepNum = idx - 1; // pairing is index 2 -> step 1
+              return (
+                <>
+                  <span className="text-[9px] font-mono text-neutral-500 uppercase">
+                    Step 0{stepNum}/05
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-[#8da090] uppercase tracking-wider">
+                    {activeChapter.toUpperCase()}
+                  </span>
+                </>
+              );
+            }
+          })()}
         </div>
 
         {/* Dynamic telemetry step lists */}
         <nav className="hidden md:flex items-center space-x-4">
           {listChapters.map((ch, idx) => {
             const isActive = activeChapter === ch;
-            const label = ch.toUpperCase();
+            let displayLabel = '';
+            if (ch === 'landing') displayLabel = 'LANDING';
+            else if (ch === 'hero') displayLabel = 'START';
+            else if (ch === 'pairing') displayLabel = '01 PAIRING';
+            else if (ch === 'intent') displayLabel = '02 INTENT';
+            else if (ch === 'selection') displayLabel = '03 SELECTION';
+            else if (ch === 'deployment') displayLabel = '04 DEPLOYMENT';
+            else if (ch === 'independence') displayLabel = '05 INDEPENDENCE';
+            else if (ch === 'download') displayLabel = 'DOWNLOAD';
+
             return (
               <button
                 key={ch}
@@ -754,7 +779,7 @@ export default function App() {
                   isActive ? 'text-brand-text font-bold' : 'text-neutral-500'
                 }`}
               >
-                0{idx} {ch === 'hero' ? 'START' : ch}
+                {displayLabel}
               </button>
             );
           })}
