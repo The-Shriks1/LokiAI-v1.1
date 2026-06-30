@@ -28,42 +28,6 @@ Enjoy zero cloud latency, 100% offline autonomy, and complete data privacy by ru
 3. **Backend Agent**: Coordinates Hugging Face API queries, handles model validation, and facilitates pushing model binaries directly to devices.
 4. **Edge Runtime**: Runs models locally and offline with text, voice, or camera-based inference.
 
-## Getting Started
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- A Gemini API key (for powering the natural language model selection assistant)
-
-### Run Locally
-
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url>
-   cd lokiai-website
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Configure Environment Variables:**
-   Copy `.env.example` to `.env.local` (or `.env`):
-   ```bash
-   cp .env.example .env.local
-   ```
-   Open the file and update `GEMINI_API_KEY` with your actual API key:
-   ```env
-   GEMINI_API_KEY="your-gemini-api-key"
-   ```
-
-4. **Start Development Server:**
-   ```bash
-   npm run dev
-   ```
-   Open the local server URL (usually `http://localhost:4556`) to access the dashboard.
-
 ---
 
-For the live platform, visit [lokiai.theshriks.space](https://lokiai.theshriks.space).
+For more details and live demo, visit [lokiai.theshriks.space](https://lokiai.theshriks.space).
