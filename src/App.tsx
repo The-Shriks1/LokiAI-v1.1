@@ -17,17 +17,17 @@ import { TelemetryLines } from './components/TelemetryLines';
 import { ModelSelectionCompare } from './components/ModelSelectionCompare';
 
 // Real Hugging Face models LokiAI would surface for "real-time object detection"
-// on a Samsung Galaxy A12 (4GB RAM, ARM64) — matches docs/02_USER_JOURNEY.md
+// on a Redmi Note 8 Pro (5GB RAM, ARM64) — matches docs/02_USER_JOURNEY.md
 const MODEL_CANDIDATES: ModelCandidate[] = [
   {
     id: 'yolo-next',
     name: 'MobileNetV4-TFLite',
     size: '45 MB',
-    speed: '~20 fps on this device',
+    speed: 'estimated ~15–20 fps',
     fps: 20,
     compatibility: 'OPTIMAL',
     accuracy: 'Detects 1000 object classes',
-    description: 'Best fit for 4GB RAM. Runs comfortably within the safe memory limit and gives smooth real-time detection.'
+    description: 'Best fit for 5GB RAM. Runs comfortably within the safe memory limit and gives smooth real-time detection.'
   },
   {
     id: 'mobilenet-ssd',
@@ -324,7 +324,7 @@ export default function App() {
             </h1>
 
             <p className="text-[14px] sm:text-[15px] leading-relaxed text-neutral-300 font-normal max-w-xl drop-shadow-lg">
-              Zero cloud latency. 100% offline autonomy. LokiAI seamlessly brings neural networks from Hugging Face to your mobile hardware — no setup required.
+              Zero cloud latency. 100% offline autonomy. LokiAI seamlessly brings neural networks from Hugging Face to your mobile hardware.
             </p>
 
             <div className="pt-2 lg:pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
@@ -362,7 +362,7 @@ export default function App() {
             </div>
 
             <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
-              LokiAI allows you to deploy fully local neural networks from Hugging Face directly onto your mobile hardware over WiFi. Zero setup, zero latency, and complete offline autonomy.
+              LokiAI allows you to deploy fully local neural networks from Hugging Face directly onto your mobile hardware over USB or WiFi. Zero setup, zero latency, and complete offline autonomy.
             </p>
 
             <div className="py-0.5">
@@ -403,7 +403,7 @@ export default function App() {
             </div>
 
             <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
-              Connect your workstation and mobile device on the same local network. A simple camera scan initiates a secure handshake that maps your target hardware profile—including memory limits, GPU buffers, and CPU architectures.
+              Connect via USB cable or scan QR code to establish a secure local link. This initiates a secure handshake that maps your target hardware profile—including memory limits, GPU buffers, and CPU architectures.
             </p>
 
             <p className="text-[12.5px] sm:text-[13.5px] leading-relaxed text-neutral-500 font-normal max-w-xl">
@@ -543,8 +543,8 @@ export default function App() {
               {[
                 { label: 'Download model from Hugging Face', speed: `${selectedModel?.size || '45 MB'}` },
                 { label: 'Verify SHA-256 file hash', speed: 'Passed' },
-                { label: 'Send model file to phone over WiFi', speed: 'Transferring' },
-                { label: 'Load on-device interface in the browser tab', speed: 'Loading' },
+                { label: 'Send model file to phone via USB / local network', speed: 'Transferring' },
+                { label: 'Load on-device interface in the EdgeMind app', speed: 'Loading' },
                 { label: 'Bind model to the interface', speed: 'Binding' },
                 { label: 'Write deployment config to phone', speed: 'Written' },
                 { label: 'Mark deployment complete', speed: 'Done' },
@@ -564,7 +564,7 @@ export default function App() {
 
             <div className="py-0.5">
               <p className="text-[11px] font-mono text-neutral-500">
-                Keep this browser tab open and stay connected to the local network.
+                Keep the EdgeMind app open while the model loads.
               </p>
             </div>
           </div>
@@ -583,7 +583,7 @@ export default function App() {
             </div>
 
             <p className="text-[13.5px] sm:text-[14.5px] leading-relaxed text-neutral-400 font-normal max-w-xl">
-              You can now safely shut down the host dashboard. The model, execution engine, and UI are stored permanently in the device's sandboxed client storage. Zero internet connection or host laptop dependencies.
+              You can now safely shut down the host dashboard. The model, execution engine, and UI are stored permanently in the device's local app storage. Zero internet connection or host laptop dependencies.
             </p>
 
             {/* Offline status banner */}

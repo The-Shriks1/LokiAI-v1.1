@@ -67,8 +67,8 @@ export const LaptopFrame: React.FC<LaptopFrameProps> = ({
   const deployLog = [
     'EdgeMind Deployment Agent v1.0',
     'Connecting to device via ADB...',
-    'Device found: Samsung Galaxy A12 (serial: R58MA2)',
-    'RAM: 4096MB | CPU: arm64-v8a | Android: 11',
+    'Device found: Redmi Note 8 Pro (serial: R58MA2)',
+    'RAM: 5636MB | CPU: arm64-v8a | Android: 11',
     `Pushing model: ${(selectedModel?.name || PREVIEW_MODELS[0].name).toLowerCase().replace('-tflite', '.tflite')} (${selectedModel?.size || PREVIEW_MODELS[0].size})`,
     '100% [====================]',
     'Model verified. SHA256: a1b2c3...',
@@ -223,7 +223,7 @@ export const LaptopFrame: React.FC<LaptopFrameProps> = ({
                                     <p>Establish secure device connection. Scan the QR link shown in Panel 5.</p>
                                   ) : (
                                     <div className="space-y-1 font-sans">
-                                      <p>Found 3 models that fit your Samsung Galaxy A12 (ARM64, 4GB RAM):</p>
+                                      <p>Found 3 models that fit your Redmi Note 8 Pro (ARM64, 5GB RAM):</p>
                                       <ul className="space-y-0.5 font-mono text-[7.5px] text-neutral-400">
                                         <li className={selectedModel?.id === 'yolo-next' || !selectedModel ? "text-[#84cc16] font-bold" : "text-neutral-600"}>• MobileNetV4 (45MB)</li>
                                         <li className={selectedModel?.id === 'mobilenet-ssd' ? "text-[#84cc16] font-bold" : "text-neutral-600"}>• YOLOv8n (27MB)</li>

@@ -82,10 +82,10 @@ export const DeviceFrame: React.FC<DeviceFrameProps> = ({
   useEffect(() => {
     if (isDeviceActive && terminalLogs.length === 0) {
       const logs = [
-        'Same WiFi network detected',
-        'Dashboard QR code ready',
-        'Waiting for phone to scan...',
-        'Handshake confirmed over WiFi',
+        'USB or local WiFi detected',
+        'Dashboard connection ready',
+        'Waiting for phone handshake...',
+        'Handshake confirmed over USB/WiFi',
         'Specs synced to LokiAI backend',
         'Ready — waiting for your request'
       ];
