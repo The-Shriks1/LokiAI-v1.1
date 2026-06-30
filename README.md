@@ -2,7 +2,7 @@
   <img src="lokiai-wordmark-new.png" alt="LokiAI Logo" width="400" />
   <p><strong>Secure Edge Intelligence — Deploy Hugging Face models directly to local devices.</strong></p>
   <p>
-    <a href="https://lokiai.theshriks.space">Live Site: lokiai.theshriks.space</a>
+    <a href="https://lokiai.theshriks.space/">Live Site: https://lokiai.theshriks.space/</a>
   </p>
 </div>
 
@@ -30,4 +30,4 @@ Enjoy zero cloud latency, 100% offline autonomy, and complete data privacy by ru
 
 ---
 
-For more details and live demo, visit [lokiai.theshriks.space](https://lokiai.theshriks.space).
+For more details and live demo, visit [https://lokiai.theshriks.space/](https://lokiai.theshriks.space/).
