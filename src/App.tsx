@@ -480,7 +480,7 @@ export default function App() {
 
       case 'selection':
         return (
-          <div className="flex flex-col space-y-4 lg:space-y-6">
+          <div className="flex flex-col space-y-2 lg:space-y-6">
             <div className="space-y-1 lg:space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-neutral-500 font-bold uppercase block">
                 Step 03 // Pick Model
@@ -502,7 +502,7 @@ export default function App() {
               />
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-1">
+            <div className="flex flex-col sm:flex-row gap-2 pt-0.5">
               <button
                 onClick={handlePrevChapter}
                 className="px-5 py-2.5 border border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-neutral-300 text-xs font-mono transition-colors duration-150 flex items-center justify-center space-x-2 rounded cursor-pointer"
@@ -788,12 +788,12 @@ export default function App() {
       </header>
 
       {/* Narrative Section & Continuous viewport journey */}
-      <main className="flex-1 min-h-0 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-2 sm:gap-4 lg:gap-12 relative z-10 overflow-y-auto overflow-x-hidden lg:overflow-hidden">
+      <main className="flex-1 min-h-0 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 py-1 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-1 sm:gap-4 lg:gap-12 relative z-10 overflow-y-auto overflow-x-hidden lg:overflow-hidden">
 
         {/* Mobile/tablet: this wrapper centers the pair as one unit via margin-auto (safe under overflow,
             unlike justify-center which clips inaccessible content on short viewports). On lg it becomes
             display:contents so narrative/device go back to being direct flex-row children of <main>. */}
-        <div className="flex flex-col items-center w-full my-auto gap-2 sm:gap-4 lg:contents">
+        <div className="flex flex-col items-center w-full my-auto gap-1 sm:gap-4 lg:contents">
 
         {/* LEFT COMPONENT COLUMN: NARRATIVE PORTION */}
         <div className={`w-full flex-none lg:flex-1 lg:overflow-y-auto overflow-x-hidden lg:min-h-0 ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center' : 'lg:w-5/12'} flex flex-col justify-center lg:min-h-[280px] space-y-4 transition-all duration-700 pb-4 lg:pb-0`} ref={narrativeRef}>
@@ -801,8 +801,8 @@ export default function App() {
         </div>
 
         {/* RIGHT COMPONENT COLUMN: IMMERSIVE DEVICE HOUSING */}
-        <div className={`relative w-full lg:w-7/12 flex items-center justify-center h-[180px] min-[400px]:h-[220px] sm:h-[280px] lg:h-auto shrink-0 transition-opacity duration-700 ${activeChapter === 'landing' ? 'opacity-0 pointer-events-none hidden lg:flex' : 'opacity-100'}`} ref={deviceContainerRef}>
-          <div className="flex flex-row flex-nowrap items-center justify-center gap-4 sm:gap-8 lg:gap-20 xl:gap-24 scale-[0.4] min-[400px]:scale-[0.45] sm:scale-[0.6] lg:scale-100 origin-center transition-all duration-300">
+        <div className={`relative w-full lg:w-7/12 flex items-center justify-center h-[120px] min-[400px]:h-[150px] sm:h-[280px] lg:h-auto shrink-0 transition-opacity duration-700 ${activeChapter === 'landing' ? 'opacity-0 pointer-events-none hidden lg:flex' : 'opacity-100'}`} ref={deviceContainerRef}>
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-8 lg:gap-20 xl:gap-24 scale-[0.3] min-[400px]:scale-[0.35] sm:scale-[0.6] lg:scale-100 origin-center transition-all duration-300">
 
             {/* Laptop — the dashboard, what the user is looking at on their laptop screen */}
             <div className="flex flex-col items-center gap-2">
