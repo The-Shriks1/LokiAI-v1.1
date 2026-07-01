@@ -791,12 +791,12 @@ export default function App() {
       <main className="flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-8 lg:gap-12 relative z-10">
 
         {/* LEFT COMPONENT COLUMN: NARRATIVE PORTION */}
-        <div className={`w-full ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center' : 'lg:w-5/12'} flex flex-col justify-center min-h-0 lg:min-h-[280px] space-y-4 transition-all duration-700`} ref={narrativeRef}>
+        <div className={`w-full ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center flex-1' : 'lg:w-5/12'} flex flex-col justify-center min-h-0 lg:min-h-[280px] space-y-4 transition-all duration-700`} ref={narrativeRef}>
           {renderChapterNarrative()}
         </div>
 
         {/* RIGHT COMPONENT COLUMN: IMMERSIVE DEVICE HOUSING */}
-        <div className={`relative w-full lg:w-7/12 flex items-center justify-center h-[260px] min-[400px]:h-[280px] min-[480px]:h-[320px] sm:h-[390px] lg:h-auto lg:min-h-0 transition-opacity duration-700 ${activeChapter === 'landing' ? 'opacity-0 pointer-events-none hidden lg:flex' : 'opacity-100'}`} ref={deviceContainerRef}>
+        <div className={`relative w-full lg:w-7/12 flex items-center justify-center h-[340px] min-[400px]:h-[360px] min-[480px]:h-[400px] sm:h-[460px] lg:h-auto lg:min-h-0 pb-12 sm:pb-0 transition-opacity duration-700 ${activeChapter === 'landing' ? 'opacity-0 pointer-events-none hidden lg:flex' : 'opacity-100'}`} ref={deviceContainerRef}>
           <div className="flex flex-row flex-nowrap items-center justify-center gap-4 sm:gap-8 lg:gap-20 xl:gap-24 scale-[0.55] min-[400px]:scale-[0.6] min-[480px]:scale-[0.7] sm:scale-[0.85] lg:scale-100 origin-center transition-all duration-300">
 
             {/* Laptop — the dashboard, what the user is looking at on their laptop screen */}
