@@ -788,7 +788,7 @@ export default function App() {
       </header>
 
       {/* Narrative Section & Continuous viewport journey */}
-      <main className="flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-8 lg:gap-12 relative z-10">
+      <main className="flex-1 min-h-0 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-8 pb-32 lg:pb-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-8 lg:gap-12 relative z-10">
 
         {/* LEFT COMPONENT COLUMN: NARRATIVE PORTION */}
         <div className={`w-full ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center flex-1' : 'lg:w-5/12'} flex flex-col justify-center min-h-0 lg:min-h-[280px] space-y-4 transition-all duration-700`} ref={narrativeRef}>
