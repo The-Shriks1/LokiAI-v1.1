@@ -836,17 +836,6 @@ export default function App() {
 
       </main>
 
-      {/* Minimal Footer */}
-      <footer className="w-full px-4 sm:px-6 py-3 sm:py-6 border-t border-neutral-900/30 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-mono text-neutral-500 z-50">
-        <div>
-          <span>© 2026 LOKI_SCI_SYSTEMS // SECURE INTEL DIVISION</span>
-        </div>
-        <div className="flex space-x-6">
-          <a href="#" onClick={(e) => { e.preventDefault(); alert("Telemetry status: Green. All local drivers matching."); }} className="hover:text-[#F2F2F2] transition-colors">OS_DRIVER_LOGS</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); alert("Hardware licensing: Public open-source compile core."); }} className="hover:text-[#F2F2F2] transition-colors">LICENSE</a>
-          <a href="#" onClick={(e) => { e.preventDefault(); alert("No cookies retained. 100% Client Sovereign data pipeline."); }} className="hover:text-[#F2F2F2] transition-colors">SECURITY_INTEGRATION_PARAMS</a>
-        </div>
-      </footer>
     </div>
   );
 }
