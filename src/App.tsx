@@ -788,10 +788,15 @@ export default function App() {
       </header>
 
       {/* Narrative Section & Continuous viewport journey */}
-      <main className="flex-1 min-h-0 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-2 sm:gap-4 lg:gap-12 relative z-10 overflow-hidden">
-        
+      <main className="flex-1 min-h-0 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-2 sm:gap-4 lg:gap-12 relative z-10 overflow-y-auto overflow-x-hidden lg:overflow-hidden">
+
+        {/* Mobile/tablet: this wrapper centers the pair as one unit via margin-auto (safe under overflow,
+            unlike justify-center which clips inaccessible content on short viewports). On lg it becomes
+            display:contents so narrative/device go back to being direct flex-row children of <main>. */}
+        <div className="flex flex-col items-center w-full my-auto gap-2 sm:gap-4 lg:contents">
+
         {/* LEFT COMPONENT COLUMN: NARRATIVE PORTION */}
-        <div className={`w-full flex-1 overflow-y-auto overflow-x-hidden min-h-0 ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center' : 'lg:w-5/12'} flex flex-col justify-start lg:justify-center lg:min-h-[280px] space-y-4 transition-all duration-700 pb-4 lg:pb-0`} ref={narrativeRef}>
+        <div className={`w-full flex-none lg:flex-1 lg:overflow-y-auto overflow-x-hidden lg:min-h-0 ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center' : 'lg:w-5/12'} flex flex-col justify-center lg:min-h-[280px] space-y-4 transition-all duration-700 pb-4 lg:pb-0`} ref={narrativeRef}>
           {renderChapterNarrative()}
         </div>
 
@@ -832,6 +837,8 @@ export default function App() {
             </div>
 
           </div>
+        </div>
+
         </div>
 
       </main>
