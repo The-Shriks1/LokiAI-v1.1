@@ -315,7 +315,7 @@ export default function App() {
         return (
           <div className="flex flex-col items-start justify-center space-y-4 lg:space-y-6 w-full max-w-5xl mx-auto z-50 text-left py-4 lg:py-12">
             <span className="text-[11px] font-mono tracking-[0.25em] text-[#8da090] font-bold uppercase drop-shadow-md">
-              LokiAI // Secure Edge Intelligence
+              Edge AI made ridiculously simple.
             </span>
 
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-normal tracking-tight text-brand-text leading-[1.08] drop-shadow-2xl">
@@ -788,12 +788,9 @@ export default function App() {
       </header>
 
       {/* Narrative Section & Continuous viewport journey */}
-      <main className="flex-1 min-h-0 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 py-1 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-1 sm:gap-4 lg:gap-12 relative z-10 overflow-y-auto overflow-x-hidden lg:overflow-hidden">
+      <main className="flex-1 min-h-0 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 md:py-8 flex flex-col lg:flex-row items-center lg:items-stretch lg:justify-between gap-6 sm:gap-8 lg:gap-12 relative z-10 overflow-y-auto overflow-x-hidden lg:overflow-hidden">
 
-        {/* Mobile/tablet: this wrapper centers the pair as one unit via margin-auto (safe under overflow,
-            unlike justify-center which clips inaccessible content on short viewports). On lg it becomes
-            display:contents so narrative/device go back to being direct flex-row children of <main>. */}
-        <div className="flex flex-col items-center w-full my-auto gap-1 sm:gap-4 lg:contents">
+        <div className="flex flex-col items-center justify-start lg:justify-center w-full h-full gap-4 sm:gap-6 lg:contents">
 
         {/* LEFT COMPONENT COLUMN: NARRATIVE PORTION */}
         <div className={`w-full flex-none lg:flex-1 lg:overflow-y-auto overflow-x-hidden lg:min-h-0 ${activeChapter === 'landing' ? 'lg:w-10/12 mx-auto text-center items-center' : 'lg:w-5/12'} flex flex-col justify-center lg:min-h-[280px] space-y-4 transition-all duration-700 pb-4 lg:pb-0`} ref={narrativeRef}>
@@ -801,8 +798,8 @@ export default function App() {
         </div>
 
         {/* RIGHT COMPONENT COLUMN: IMMERSIVE DEVICE HOUSING */}
-        <div className={`relative w-full lg:w-7/12 flex items-center justify-center h-[120px] min-[400px]:h-[150px] sm:h-[280px] lg:h-auto shrink-0 transition-opacity duration-700 ${activeChapter === 'landing' ? 'opacity-0 pointer-events-none hidden lg:flex' : 'opacity-100'}`} ref={deviceContainerRef}>
-          <div className="flex flex-row flex-nowrap items-center justify-center gap-2 sm:gap-8 lg:gap-20 xl:gap-24 scale-[0.3] min-[400px]:scale-[0.35] sm:scale-[0.6] lg:scale-100 origin-center transition-all duration-300">
+        <div className={`relative w-full lg:w-7/12 flex items-center justify-center h-[180px] min-[400px]:h-[220px] sm:h-[280px] lg:h-auto shrink-0 transition-opacity duration-700 ${activeChapter === 'landing' ? 'opacity-0 pointer-events-none hidden lg:flex' : 'opacity-100'}`} ref={deviceContainerRef}>
+          <div className="flex flex-row flex-nowrap items-center justify-center gap-6 sm:gap-8 lg:gap-20 xl:gap-24 scale-[0.45] min-[400px]:scale-[0.5] sm:scale-[0.6] lg:scale-100 origin-center transition-all duration-300">
 
             {/* Laptop — the dashboard, what the user is looking at on their laptop screen */}
             <div className="flex flex-col items-center gap-2">
