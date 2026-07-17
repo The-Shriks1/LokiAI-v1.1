@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { Play, Volume2, VolumeX, ShieldAlert, CheckCircle2 } from "lucide-react";
+import { ShieldAlert, CheckCircle2 } from "lucide-react";
 
 // 5x7 Dot-matrix representation of digits 0-9
 const BITMAPS: Record<number, number[][]> = {
@@ -241,7 +241,7 @@ export default function App() {
     isComplete: false,
   });
 
-  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   
   // High performance SVG path & Ring refs to bypass React render bottleneck
@@ -361,56 +361,60 @@ export default function App() {
     return () => cancelAnimationFrame(animationFrameId);
   }, [soundEnabled]);
 
-  // Audio initialization (Web Audio API Synthesizer)
-  const toggleSound = () => {
-    if (!soundEnabled) {
-      try {
-        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-        const ctx = new AudioContextClass();
-        audioContextRef.current = ctx;
+  // Audio initialization — starts automatically on first user interaction (browser autoplay policy)
+  const startAudio = () => {
+    if (audioContextRef.current) return; // already started
+    try {
+      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+      const ctx = new AudioContextClass();
+      audioContextRef.current = ctx;
 
-        // Subtly warm low-frequency mechanical synthesizer
-        const osc = ctx.createOscillator();
-        osc.type = "sawtooth";
-        osc.frequency.setValueAtTime(80, ctx.currentTime);
+      // Subtly warm low-frequency mechanical synthesizer
+      const osc = ctx.createOscillator();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(80, ctx.currentTime);
 
-        const filter = ctx.createBiquadFilter();
-        filter.type = "lowpass";
-        filter.frequency.setValueAtTime(200, ctx.currentTime);
-        filter.Q.setValueAtTime(4, ctx.currentTime);
+      const filter = ctx.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(200, ctx.currentTime);
+      filter.Q.setValueAtTime(4, ctx.currentTime);
 
-        const gain = ctx.createGain();
-        gain.gain.setValueAtTime(0, ctx.currentTime);
-        gain.gain.setTargetAtTime(0.04, ctx.currentTime, 0.3); // Safe, low volume atmospheric rumble
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.setTargetAtTime(0.04, ctx.currentTime, 0.3); // Safe, low volume atmospheric rumble
 
-        osc.connect(filter);
-        filter.connect(gain);
-        gain.connect(ctx.destination);
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
 
-        osc.start();
+      osc.start();
 
-        oscillatorRef.current = osc;
-        filterRef.current = filter;
-        gainNodeRef.current = gain;
-        setSoundEnabled(true);
-      } catch (err) {
-        console.warn("Audio context failed to start:", err);
-      }
-    } else {
-      if (gainNodeRef.current && audioContextRef.current) {
-        gainNodeRef.current.gain.setTargetAtTime(0, audioContextRef.current.currentTime, 0.15);
-        setTimeout(() => {
-          oscillatorRef.current?.stop();
-          audioContextRef.current?.close();
-          oscillatorRef.current = null;
-          audioContextRef.current = null;
-          filterRef.current = null;
-          gainNodeRef.current = null;
-          setSoundEnabled(false);
-        }, 200);
-      }
+      oscillatorRef.current = osc;
+      filterRef.current = filter;
+      gainNodeRef.current = gain;
+      setSoundEnabled(true);
+    } catch (err) {
+      console.warn("Audio context failed to start:", err);
     }
   };
+
+  // Auto-start sound on first user interaction (required by browser autoplay policy)
+  useEffect(() => {
+    const handleFirstInteraction = () => {
+      startAudio();
+      window.removeEventListener("click", handleFirstInteraction);
+      window.removeEventListener("touchstart", handleFirstInteraction);
+      window.removeEventListener("keydown", handleFirstInteraction);
+    };
+    window.addEventListener("click", handleFirstInteraction);
+    window.addEventListener("touchstart", handleFirstInteraction);
+    window.addEventListener("keydown", handleFirstInteraction);
+    return () => {
+      window.removeEventListener("click", handleFirstInteraction);
+      window.removeEventListener("touchstart", handleFirstInteraction);
+      window.removeEventListener("keydown", handleFirstInteraction);
+    };
+  }, []);
 
   // Convert digits to separate array values
   const formatNum = (num: number, digits: number = 2): number[] => {
@@ -450,23 +454,7 @@ export default function App() {
         <div className="absolute h-[140vh] w-[1px] bg-basalt-800" />
       </div>
 
-      {/* Ambient Audio Control (Grounded physical instrument design) */}
-      <button
-        onClick={toggleSound}
-        className="absolute top-4 right-4 p-1.5 rounded-full border border-basalt-800 bg-basalt-900/60 text-sand hover:text-ivory hover:border-sand/40 transition-all z-50 cursor-pointer basalt-plate flex items-center gap-2 text-[10px] md:text-xs font-mono tracking-widest px-2.5 py-1"
-      >
-        {soundEnabled ? (
-          <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#43A047] animate-ping" />
-            <span className="text-[#43A047]">SOUND: ON</span>
-          </div>
-        ) : (
-          <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-basalt-800" />
-            <span>SOUND: OFF</span>
-          </div>
-        )}
-      </button>
+
 
       {/* Main Central Monolith (3D Tablet) */}
       <div
