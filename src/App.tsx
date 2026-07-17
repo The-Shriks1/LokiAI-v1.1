@@ -506,9 +506,6 @@ export default function App() {
         <div className="flex justify-between items-center border-b border-basalt-800 pb-4">
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${timeLeft.isComplete ? 'bg-moss animate-pulse' : 'bg-rust animate-pulse'}`} />
-            <span className="font-mono text-[10px] md:text-xs text-sand tracking-[0.2em] font-medium">
-              {timeLeft.isComplete ? "COUNTDOWN COMPLETE" : "CHRONOMETRIC LOCK"}
-            </span>
           </div>
           <div className="font-mono text-[10px] md:text-xs text-sand/70 tracking-[0.15em]">
             TARGET: <span className="text-ivory font-semibold">19 JULY 2026</span>
@@ -716,32 +713,12 @@ export default function App() {
               </div>
             </div>
 
-            {/* Elegant Minimal Alignment Label */}
-            <div className="mt-4 flex flex-col items-center">
-              <span className="font-mono text-[9px] text-sand/60 tracking-widest uppercase">CONVERGENCE ALIGNMENT</span>
-            </div>
+
           </div>
 
         </div>
 
-        {/* Console Footnotes */}
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-basalt-800 pt-4 font-mono text-[9px] md:text-[10px] text-sand/60 gap-3">
-          <div className="flex items-center gap-1.5">
-            {timeLeft.isComplete ? (
-              <CheckCircle2 size={12} className="text-moss" />
-            ) : (
-              <ShieldAlert size={12} className="text-rust" />
-            )}
-            <span>
-              {timeLeft.isComplete 
-                ? "ALIGNMENT COMPLETE: HORIZON SYNCHRONIZED" 
-                : "SYNCHRONIZATION ACTIVE"}
-            </span>
-          </div>
-          <div className="tracking-widest">
-            TEMPORAL MEASUREMENT INSTRUMENT
-          </div>
-        </div>
+
 
       </div>
 
