@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { ShieldAlert, CheckCircle2 } from "lucide-react";
+import { ShieldAlert, CheckCircle2, Volume2, VolumeX } from "lucide-react";
 
 // 5x7 Dot-matrix representation of digits 0-9
 const BITMAPS: Record<number, number[][]> = {
@@ -454,7 +454,35 @@ export default function App() {
         <div className="absolute h-[140vh] w-[1px] bg-basalt-800" />
       </div>
 
-
+      {/* Sound toggle — small icon only, top-right corner */}
+      <button
+        onClick={() => {
+          if (soundEnabled) {
+            // Turn off
+            if (gainNodeRef.current && audioContextRef.current) {
+              gainNodeRef.current.gain.setTargetAtTime(0, audioContextRef.current.currentTime, 0.15);
+              setTimeout(() => {
+                oscillatorRef.current?.stop();
+                audioContextRef.current?.close();
+                oscillatorRef.current = null;
+                audioContextRef.current = null;
+                filterRef.current = null;
+                gainNodeRef.current = null;
+              }, 200);
+            }
+            setSoundEnabled(false);
+          } else {
+            // Turn on
+            startAudio();
+          }
+        }}
+        className="absolute top-4 right-4 z-50 w-7 h-7 flex items-center justify-center rounded-full border border-basalt-800 bg-basalt-900/60 text-sand hover:text-ivory hover:border-basalt-700 transition-all cursor-pointer"
+        title={soundEnabled ? "Mute" : "Unmute"}
+      >
+        {soundEnabled
+          ? <Volume2 size={13} />
+          : <VolumeX size={13} />}
+      </button>
 
       {/* Main Central Monolith (3D Tablet) */}
       <div
