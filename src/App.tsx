@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from "react";
-import { ShieldAlert, CheckCircle2, Volume2, VolumeX } from "lucide-react";
+import { Play, Volume2, VolumeX, ShieldAlert, CheckCircle2 } from "lucide-react";
 
 // 5x7 Dot-matrix representation of digits 0-9
 const BITMAPS: Record<number, number[][]> = {
@@ -111,7 +111,7 @@ function MechanicalMatrixDigit({ value, isRust = false, isComplete = false }: Me
   const grid = BITMAPS[value] || BITMAPS[0];
 
   return (
-    <div className="grid grid-cols-5 gap-[0.3px] xs:gap-[0.8px] md:gap-[1.2px] p-[1px] xs:p-[1.5px] md:p-[3px] bg-basalt-950/95 rounded-sm basalt-well relative overflow-hidden w-[16px] h-[23px] xs:w-[22px] xs:h-[31px] sm:w-[28px] sm:h-[40px] md:w-[38px] md:h-[54px] lg:w-[46px] lg:h-[65px] select-none border border-basalt-900/60 shadow-[0_4px_12px_rgba(0,0,0,0.6)]">
+    <div className="grid grid-cols-5 gap-[0.3px] xs:gap-[0.6px] md:gap-[1px] p-[1px] xs:p-[1.5px] md:p-[2px] bg-basalt-950/95 rounded-sm basalt-well relative overflow-hidden w-[12px] h-[17px] xs:w-[15px] xs:h-[21px] sm:w-[20px] sm:h-[28px] md:w-[26px] md:h-[37px] lg:w-[28px] lg:h-[40px] xl:w-[34px] xl:h-[48px] select-none border border-basalt-900/60 shadow-[0_4px_12px_rgba(0,0,0,0.6)] flex-shrink-0">
       {grid.map((row, rIdx) =>
          row.map((active, cIdx) => {
           const isActive = active === 1;
@@ -228,8 +228,8 @@ function Delimiter({ blink = false, isRust = false, isComplete = false }: Delimi
 
 // Main App component
 export default function App() {
-  const TARGET_DATE = new Date("2026-07-19T00:00:00");
-  const TOTAL_DURATION_SEC = 2 * 24 * 60 * 60; // 2 days reference frame for percentage calculation
+  const TARGET_DATE = new Date("2026-07-19T19:00:00");
+  const TOTAL_DURATION_SEC = 24 * 60 * 60; // 24 hours reference frame for percentage calculation
   
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -241,7 +241,7 @@ export default function App() {
     isComplete: false,
   });
 
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   
   // High performance SVG path & Ring refs to bypass React render bottleneck
@@ -361,60 +361,56 @@ export default function App() {
     return () => cancelAnimationFrame(animationFrameId);
   }, [soundEnabled]);
 
-  // Audio initialization — starts automatically on first user interaction (browser autoplay policy)
-  const startAudio = () => {
-    if (audioContextRef.current) return; // already started
-    try {
-      const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
-      const ctx = new AudioContextClass();
-      audioContextRef.current = ctx;
+  // Audio initialization (Web Audio API Synthesizer)
+  const toggleSound = () => {
+    if (!soundEnabled) {
+      try {
+        const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+        const ctx = new AudioContextClass();
+        audioContextRef.current = ctx;
 
-      // Subtly warm low-frequency mechanical synthesizer
-      const osc = ctx.createOscillator();
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(80, ctx.currentTime);
+        // Subtly warm low-frequency mechanical synthesizer
+        const osc = ctx.createOscillator();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(80, ctx.currentTime);
 
-      const filter = ctx.createBiquadFilter();
-      filter.type = "lowpass";
-      filter.frequency.setValueAtTime(200, ctx.currentTime);
-      filter.Q.setValueAtTime(4, ctx.currentTime);
+        const filter = ctx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(200, ctx.currentTime);
+        filter.Q.setValueAtTime(4, ctx.currentTime);
 
-      const gain = ctx.createGain();
-      gain.gain.setValueAtTime(0, ctx.currentTime);
-      gain.gain.setTargetAtTime(0.04, ctx.currentTime, 0.3); // Safe, low volume atmospheric rumble
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0, ctx.currentTime);
+        gain.gain.setTargetAtTime(0.04, ctx.currentTime, 0.3); // Safe, low volume atmospheric rumble
 
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
+        osc.connect(filter);
+        filter.connect(gain);
+        gain.connect(ctx.destination);
 
-      osc.start();
+        osc.start();
 
-      oscillatorRef.current = osc;
-      filterRef.current = filter;
-      gainNodeRef.current = gain;
-      setSoundEnabled(true);
-    } catch (err) {
-      console.warn("Audio context failed to start:", err);
+        oscillatorRef.current = osc;
+        filterRef.current = filter;
+        gainNodeRef.current = gain;
+        setSoundEnabled(true);
+      } catch (err) {
+        console.warn("Audio context failed to start:", err);
+      }
+    } else {
+      if (gainNodeRef.current && audioContextRef.current) {
+        gainNodeRef.current.gain.setTargetAtTime(0, audioContextRef.current.currentTime, 0.15);
+        setTimeout(() => {
+          oscillatorRef.current?.stop();
+          audioContextRef.current?.close();
+          oscillatorRef.current = null;
+          audioContextRef.current = null;
+          filterRef.current = null;
+          gainNodeRef.current = null;
+          setSoundEnabled(false);
+        }, 200);
+      }
     }
   };
-
-  // Auto-start sound on first user interaction (required by browser autoplay policy)
-  useEffect(() => {
-    const handleFirstInteraction = () => {
-      startAudio();
-      window.removeEventListener("click", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
-    };
-    window.addEventListener("click", handleFirstInteraction);
-    window.addEventListener("touchstart", handleFirstInteraction);
-    window.addEventListener("keydown", handleFirstInteraction);
-    return () => {
-      window.removeEventListener("click", handleFirstInteraction);
-      window.removeEventListener("touchstart", handleFirstInteraction);
-      window.removeEventListener("keydown", handleFirstInteraction);
-    };
-  }, []);
 
   // Convert digits to separate array values
   const formatNum = (num: number, digits: number = 2): number[] => {
@@ -454,34 +450,22 @@ export default function App() {
         <div className="absolute h-[140vh] w-[1px] bg-basalt-800" />
       </div>
 
-      {/* Sound toggle — small icon only, top-right corner */}
+      {/* Ambient Audio Control (Grounded physical instrument design) */}
       <button
-        onClick={() => {
-          if (soundEnabled) {
-            // Turn off
-            if (gainNodeRef.current && audioContextRef.current) {
-              gainNodeRef.current.gain.setTargetAtTime(0, audioContextRef.current.currentTime, 0.15);
-              setTimeout(() => {
-                oscillatorRef.current?.stop();
-                audioContextRef.current?.close();
-                oscillatorRef.current = null;
-                audioContextRef.current = null;
-                filterRef.current = null;
-                gainNodeRef.current = null;
-              }, 200);
-            }
-            setSoundEnabled(false);
-          } else {
-            // Turn on
-            startAudio();
-          }
-        }}
-        className="absolute top-4 right-4 z-50 w-7 h-7 flex items-center justify-center rounded-full border border-basalt-800 bg-basalt-900/60 text-sand hover:text-ivory hover:border-basalt-700 transition-all cursor-pointer"
-        title={soundEnabled ? "Mute" : "Unmute"}
+        onClick={toggleSound}
+        className="absolute top-4 right-4 p-1.5 rounded-full border border-basalt-800 bg-basalt-900/60 text-sand hover:text-ivory hover:border-sand/40 transition-all z-50 cursor-pointer basalt-plate flex items-center gap-2 text-[10px] md:text-xs font-mono tracking-widest px-2.5 py-1"
       >
-        {soundEnabled
-          ? <Volume2 size={13} />
-          : <VolumeX size={13} />}
+        {soundEnabled ? (
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#43A047] animate-ping" />
+            <span className="text-[#43A047]">SOUND: ON</span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-basalt-800" />
+            <span>SOUND: OFF</span>
+          </div>
+        )}
       </button>
 
       {/* Main Central Monolith (3D Tablet) */}
@@ -503,12 +487,15 @@ export default function App() {
         </div>
 
         {/* Tablet Architectural Header */}
-        <div className="flex justify-between items-center border-b border-basalt-800 pb-4">
+        <div className="flex flex-wrap justify-between items-center border-b border-basalt-800 pb-4 gap-2">
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${timeLeft.isComplete ? 'bg-moss animate-pulse' : 'bg-rust animate-pulse'}`} />
+            <span className="font-mono text-[10px] md:text-xs text-sand tracking-[0.2em] font-medium">
+              {timeLeft.isComplete ? "COUNTDOWN COMPLETE" : "CHRONOMETRIC LOCK"}
+            </span>
           </div>
           <div className="font-mono text-[10px] md:text-xs text-sand/70 tracking-[0.15em]">
-            TARGET: <span className="text-ivory font-semibold">19 JULY 2026</span>
+            TARGET: <span className="text-ivory font-semibold">19 JUL 2026, 19:00</span>
           </div>
         </div>
 
@@ -516,67 +503,69 @@ export default function App() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           
           {/* Section A: Countdown Block Matrix (8 Columns in LG) */}
-          <div className="lg:col-span-8 flex flex-col gap-4 md:gap-6">
+          <div className="lg:col-span-8 flex flex-col gap-4 md:gap-6 w-full min-w-0">
             
-            {/* The Digital Block Console - Scrollable and responsive without wrapping, hiding scrollbar */}
-            <div className="flex flex-nowrap justify-start sm:justify-center items-center gap-x-0.5 xs:gap-x-1 sm:gap-x-2 md:gap-x-3 lg:gap-x-4 p-1.5 xs:p-2.5 md:p-5 bg-basalt-950/40 rounded-lg basalt-well border border-basalt-950/80 overflow-x-auto no-scrollbar max-w-full w-full select-none">
-              
-              {/* DAYS GROUP */}
-              <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                <div className="flex gap-0.5 md:gap-1">
-                  <MechanicalMatrixDigit value={dArr[0]} isComplete={timeLeft.isComplete} />
-                  <MechanicalMatrixDigit value={dArr[1]} isComplete={timeLeft.isComplete} />
+            {/* The Digital Block Console - Perfectly responsive matrix console with zero clipping */}
+            <div className="w-full bg-basalt-950/40 rounded-lg basalt-well border border-basalt-950/80 overflow-hidden select-none p-1.5 xs:p-2 sm:p-3 md:p-4">
+              <div className="flex flex-nowrap items-center justify-between sm:justify-center gap-x-0.5 xs:gap-x-1 sm:gap-x-2 md:gap-x-2.5 lg:gap-x-3 w-full">
+                
+                {/* DAYS GROUP */}
+                <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                  <div className="flex gap-0.5 md:gap-1">
+                    <MechanicalMatrixDigit value={dArr[0]} isComplete={timeLeft.isComplete} />
+                    <MechanicalMatrixDigit value={dArr[1]} isComplete={timeLeft.isComplete} />
+                  </div>
+                  <span className="font-mono text-[7px] xs:text-[8px] md:text-[10px] text-sand tracking-[0.1em] mt-0.5 font-medium whitespace-nowrap text-center">DAYS</span>
                 </div>
-                <span className="font-mono text-[6px] xs:text-[8px] md:text-[10px] text-sand tracking-[0.15em] mt-0.5 font-medium">DAYS</span>
-              </div>
 
-              <Delimiter blink={!timeLeft.isComplete} isComplete={timeLeft.isComplete} />
+                <Delimiter blink={!timeLeft.isComplete} isComplete={timeLeft.isComplete} />
 
-              {/* HOURS GROUP */}
-              <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                <div className="flex gap-0.5 md:gap-1">
-                  <MechanicalMatrixDigit value={hArr[0]} isComplete={timeLeft.isComplete} />
-                  <MechanicalMatrixDigit value={hArr[1]} isComplete={timeLeft.isComplete} />
+                {/* HOURS GROUP */}
+                <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                  <div className="flex gap-0.5 md:gap-1">
+                    <MechanicalMatrixDigit value={hArr[0]} isComplete={timeLeft.isComplete} />
+                    <MechanicalMatrixDigit value={hArr[1]} isComplete={timeLeft.isComplete} />
+                  </div>
+                  <span className="font-mono text-[7px] xs:text-[8px] md:text-[10px] text-sand tracking-[0.1em] mt-0.5 font-medium whitespace-nowrap text-center">HOURS</span>
                 </div>
-                <span className="font-mono text-[6px] xs:text-[8px] md:text-[10px] text-sand tracking-[0.15em] mt-0.5 font-medium">HOURS</span>
-              </div>
 
-              <Delimiter blink={!timeLeft.isComplete} isComplete={timeLeft.isComplete} />
+                <Delimiter blink={!timeLeft.isComplete} isComplete={timeLeft.isComplete} />
 
-              {/* MINUTES GROUP */}
-              <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                <div className="flex gap-0.5 md:gap-1">
-                  <MechanicalMatrixDigit value={mArr[0]} isComplete={timeLeft.isComplete} />
-                  <MechanicalMatrixDigit value={mArr[1]} isComplete={timeLeft.isComplete} />
+                {/* MINUTES GROUP */}
+                <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                  <div className="flex gap-0.5 md:gap-1">
+                    <MechanicalMatrixDigit value={mArr[0]} isComplete={timeLeft.isComplete} />
+                    <MechanicalMatrixDigit value={mArr[1]} isComplete={timeLeft.isComplete} />
+                  </div>
+                  <span className="font-mono text-[7px] xs:text-[8px] md:text-[10px] text-sand tracking-[0.1em] mt-0.5 font-medium whitespace-nowrap text-center">MINUTES</span>
                 </div>
-                <span className="font-mono text-[6px] xs:text-[8px] md:text-[10px] text-sand tracking-[0.15em] mt-0.5 font-medium">MINUTES</span>
-              </div>
 
-              <Delimiter blink={!timeLeft.isComplete} isComplete={timeLeft.isComplete} />
+                <Delimiter blink={!timeLeft.isComplete} isComplete={timeLeft.isComplete} />
 
-              {/* SECONDS GROUP */}
-              <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                <div className="flex gap-0.5 md:gap-1">
-                  <MechanicalMatrixDigit value={sArr[0]} isComplete={timeLeft.isComplete} />
-                  <MechanicalMatrixDigit value={sArr[1]} isComplete={timeLeft.isComplete} />
+                {/* SECONDS GROUP */}
+                <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                  <div className="flex gap-0.5 md:gap-1">
+                    <MechanicalMatrixDigit value={sArr[0]} isComplete={timeLeft.isComplete} />
+                    <MechanicalMatrixDigit value={sArr[1]} isComplete={timeLeft.isComplete} />
+                  </div>
+                  <span className="font-mono text-[7px] xs:text-[8px] md:text-[10px] text-sand tracking-[0.1em] mt-0.5 font-medium whitespace-nowrap text-center">SECONDS</span>
                 </div>
-                <span className="font-mono text-[6px] xs:text-[8px] md:text-[10px] text-sand tracking-[0.15em] mt-0.5 font-medium">SECONDS</span>
-              </div>
 
-              <Delimiter blink={false} isRust={true} isComplete={timeLeft.isComplete} />
+                <Delimiter blink={false} isRust={true} isComplete={timeLeft.isComplete} />
 
-              {/* MILLISECONDS GROUP (Fluttering physical micro-intervals) */}
-              <div className="flex flex-col items-center gap-1 flex-shrink-0">
-                <div className="flex gap-0.5">
-                  <MechanicalMatrixDigit value={msArr[0]} isRust={true} isComplete={timeLeft.isComplete} />
-                  <MechanicalMatrixDigit value={msArr[1]} isRust={true} isComplete={timeLeft.isComplete} />
-                  <MechanicalMatrixDigit value={msArr[2]} isRust={true} isComplete={timeLeft.isComplete} />
+                {/* MILLISECONDS GROUP (Fluttering physical micro-intervals) */}
+                <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                  <div className="flex gap-0.5 md:gap-1">
+                    <MechanicalMatrixDigit value={msArr[0]} isRust={true} isComplete={timeLeft.isComplete} />
+                    <MechanicalMatrixDigit value={msArr[1]} isRust={true} isComplete={timeLeft.isComplete} />
+                    <MechanicalMatrixDigit value={msArr[2]} isRust={true} isComplete={timeLeft.isComplete} />
+                  </div>
+                  <span className="font-mono text-[6px] xs:text-[7px] md:text-[9px] text-rust/80 tracking-[0.04em] mt-0.5 font-medium whitespace-nowrap text-center">
+                    MILLISECONDS
+                  </span>
                 </div>
-                <span className="font-mono text-[5px] xs:text-[7px] md:text-[9px] text-rust/80 tracking-[0.05em] xs:tracking-[0.12em] mt-0.5 font-medium">
-                  MILLISECONDS
-                </span>
-              </div>
 
+              </div>
             </div>
 
             {/* The Waveform Resonance (Pure visual analog representation of time flow) */}
@@ -713,12 +702,32 @@ export default function App() {
               </div>
             </div>
 
-
+            {/* Elegant Minimal Alignment Label */}
+            <div className="mt-4 flex flex-col items-center">
+              <span className="font-mono text-[9px] text-sand/60 tracking-widest uppercase">CONVERGENCE ALIGNMENT</span>
+            </div>
           </div>
 
         </div>
 
-
+        {/* Console Footnotes */}
+        <div className="flex flex-col md:flex-row justify-between items-center border-t border-basalt-800 pt-4 font-mono text-[9px] md:text-[10px] text-sand/60 gap-3">
+          <div className="flex items-center gap-1.5">
+            {timeLeft.isComplete ? (
+              <CheckCircle2 size={12} className="text-moss" />
+            ) : (
+              <ShieldAlert size={12} className="text-rust" />
+            )}
+            <span>
+              {timeLeft.isComplete 
+                ? "ALIGNMENT COMPLETE: HORIZON SYNCHRONIZED" 
+                : "SYNCHRONIZATION ACTIVE"}
+            </span>
+          </div>
+          <div className="tracking-widest">
+            TEMPORAL MEASUREMENT INSTRUMENT
+          </div>
+        </div>
 
       </div>
 
