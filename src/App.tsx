@@ -111,40 +111,36 @@ function MechanicalMatrixDigit({ value, isRust = false, isComplete = false }: Me
   const grid = BITMAPS[value] || BITMAPS[0];
 
   return (
-    <div className="grid grid-cols-5 gap-[0.3px] xs:gap-[0.6px] md:gap-[1px] p-[1px] xs:p-[1.5px] md:p-[2px] bg-basalt-950/95 rounded-sm basalt-well relative overflow-hidden w-[12px] h-[17px] xs:w-[15px] xs:h-[21px] sm:w-[20px] sm:h-[28px] md:w-[26px] md:h-[37px] lg:w-[28px] lg:h-[40px] xl:w-[34px] xl:h-[48px] select-none border border-basalt-900/60 shadow-[0_4px_12px_rgba(0,0,0,0.6)] flex-shrink-0">
+    <div className="grid grid-cols-5 gap-[0.5px] sm:gap-[1px] md:gap-[1.5px] p-[1.5px] sm:p-[2.5px] md:p-[3px] bg-basalt-950 rounded basalt-well relative overflow-hidden w-[16px] h-[24px] xs:w-[20px] xs:h-[30px] sm:w-[26px] sm:h-[38px] md:w-[34px] md:h-[50px] lg:w-[36px] lg:h-[52px] xl:w-[42px] xl:h-[60px] select-none border border-basalt-800 shadow-[0_4px_12px_rgba(0,0,0,0.8)] flex-shrink-0">
       {grid.map((row, rIdx) =>
          row.map((active, cIdx) => {
           const isActive = active === 1;
           
-          let activeClass = "bg-ivory shadow-[0_0_6px_1px_rgba(240,238,233,0.6),inset_0.5px_0.5px_1px_rgba(255,255,255,0.8)]";
+          let activeClass = "bg-[#f5f5f0] shadow-[0_0_8px_2px_rgba(255,255,255,0.95)]";
           let coreClass = "bg-white";
           if (isComplete) {
-            activeClass = "bg-[#6cad6c] shadow-[0_0_8px_2px_rgba(108,173,108,0.7),inset_0.5px_0.5px_1px_rgba(255,255,255,0.9)]";
-            coreClass = "bg-[#d4f0d4]";
+            activeClass = "bg-[#4CAF50] shadow-[0_0_10px_3px_rgba(76,175,80,0.95)]";
+            coreClass = "bg-[#e8f5e9]";
           } else if (isRust) {
-            activeClass = "bg-[#43A047] shadow-[0_0_8px_2px_rgba(67,160,71,0.85),inset_0.5px_0.5px_1px_rgba(255,255,255,0.9)]";
+            activeClass = "bg-[#66BB6A] shadow-[0_0_10px_3px_rgba(102,187,106,0.95)]";
             coreClass = "bg-[#e8f5e9]";
           }
 
           return (
             <div
               key={`${rIdx}-${cIdx}`}
-              className="relative w-full h-full rounded-[0.5px] bg-[#0c0d0e] flex items-center justify-center overflow-hidden border-[0.3px] border-basalt-950/40"
-              style={{
-                boxShadow: "inset 0.5px 0.5px 1px rgba(0, 0, 0, 0.95)"
-              }}
+              className="relative w-full h-full rounded-[0.5px] bg-[#050607] flex items-center justify-center overflow-hidden"
             >
-              {/* LED internal die cup structure */}
+              {/* LED die emitter */}
               <div
-                className={`w-[70%] h-[70%] rounded-[0.5px] transition-all duration-[240ms] cubic-bezier(0.25, 1, 0.5, 1) relative flex items-center justify-center ${
+                className={`w-[85%] h-[85%] rounded-[0.5px] transition-all duration-150 relative flex items-center justify-center ${
                   isActive 
                     ? `${activeClass} scale-100` 
-                    : "bg-basalt-900/20 opacity-[0.12] scale-75 border-[0.2px] border-basalt-800/20"
+                    : "bg-basalt-900/10 opacity-[0.05] scale-50"
                 }`}
               >
-                {/* Silicon micro-die bright emitter hotspot */}
                 {isActive && (
-                  <div className={`w-[35%] h-[35%] rounded-[0.2px] ${coreClass} shadow-[0_0_3px_rgba(255,255,255,0.9)] z-10`} />
+                  <div className={`w-[50%] h-[50%] rounded-[0.2px] ${coreClass} shadow-[0_0_4px_rgba(255,255,255,1)] z-10`} />
                 )}
               </div>
             </div>
@@ -486,17 +482,27 @@ export default function App() {
           <div className="w-[1.2px] h-[5px] bg-basalt-900/60 rotate-12" />
         </div>
 
-        {/* Tablet Architectural Header */}
-        <div className="flex flex-wrap justify-between items-center border-b border-basalt-800 pb-4 gap-2">
+        {/* LokiAI Brand Header */}
+        <div className="flex items-center justify-between border-b border-basalt-800 pb-3">
+          <div className="flex items-center gap-3">
+            <img src="/favicon.png" alt="LokiAI Logo" className="w-8 h-8 rounded-lg shadow-md" />
+            <div className="flex flex-col">
+              <span className="font-mono text-sm md:text-base text-ivory font-bold tracking-wider">LokiAI</span>
+              <span className="font-mono text-[9px] text-sand/60 tracking-widest uppercase">Edge AI Platform</span>
+            </div>
+          </div>
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${timeLeft.isComplete ? 'bg-moss animate-pulse' : 'bg-rust animate-pulse'}`} />
-            <span className="font-mono text-[10px] md:text-xs text-sand tracking-[0.2em] font-medium">
+            <span className="font-mono text-[10px] md:text-xs text-sand tracking-[0.15em] font-medium">
               {timeLeft.isComplete ? "COUNTDOWN COMPLETE" : "CHRONOMETRIC LOCK"}
             </span>
           </div>
-          <div className="font-mono text-[10px] md:text-xs text-sand/70 tracking-[0.15em]">
-            TARGET: <span className="text-ivory font-semibold">19 JUL 2026, 19:00</span>
-          </div>
+        </div>
+
+        {/* Target Info Bar */}
+        <div className="flex justify-between items-center text-xs font-mono text-sand/70 pb-1">
+          <span>TARGET LAUNCH:</span>
+          <span className="text-ivory font-semibold tracking-wider">19 JULY 2026, 19:00</span>
         </div>
 
         {/* Tactical Interior Layout (Grid: Left Countdown / Right Astrolabe) */}
@@ -568,12 +574,12 @@ export default function App() {
               </div>
             </div>
 
-            {/* The Waveform Resonance (Pure visual analog representation of time flow) */}
+            {/* The Waveform Resonance */}
             <div className="relative p-4 bg-basalt-950/30 border border-basalt-800 rounded-lg basalt-well overflow-hidden h-[80px] flex flex-col justify-between">
               <div className="flex justify-between items-center z-10">
-                <span className="font-mono text-[9px] text-sand/80 tracking-widest uppercase">TEMPORAL RESONANCE</span>
+                <span className="font-mono text-[9px] text-sand/80 tracking-widest uppercase">SIGNAL WAVE</span>
                 <span className="font-mono text-[9px] text-rust/80 tracking-widest uppercase">
-                  {timeLeft.isComplete ? "CONVERGED" : "ACTIVE ALIGNMENT"}
+                  {timeLeft.isComplete ? "FINISHED" : "COUNTING DOWN"}
                 </span>
               </div>
               
@@ -614,7 +620,7 @@ export default function App() {
 
           </div>
 
-          {/* Section B: Astronomical astrolabe alignment ring (4 Columns in LG) */}
+          {/* Section B: Alignment clock dial */}
           <div className="lg:col-span-4 flex flex-col items-center justify-center border-t lg:border-t-0 lg:border-l border-basalt-800 pt-6 lg:pt-0 lg:pl-8">
             
             {/* Heavy-milled Industrial Bezel Housing */}
@@ -650,34 +656,30 @@ export default function App() {
                   <circle cx="100" cy="100" r="87" fill="url(#ringGlow)" stroke="currentColor" strokeWidth="0.75" strokeDasharray="3 20" />
                 </svg>
 
-                {/* Ring 1: Solar Year Alignment (Outer Interactive Brass Needle) */}
+                {/* Ring 1: Solar Year Alignment */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none transition-transform duration-1000">
                   <svg ref={ringRef1} viewBox="0 0 100 100" className="w-full h-full text-[#c5a880] drop-shadow-[0_2.5px_4px_rgba(0,0,0,0.85)]" style={{ transformOrigin: "center" }}>
                     <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="0.4" strokeDasharray="1 10" opacity="0.4" />
-                    {/* Brass Pointer Needle */}
                     <path d="M 50 50 L 50 10" stroke="#c5a880" strokeWidth="1" strokeLinecap="round" />
                     <polygon points="50,7 48,12 52,12" fill="#c5a880" />
-                    {/* Counterweight */}
                     <line x1="50" y1="50" x2="50" y2="62" stroke="#c5a880" strokeWidth="0.8" />
                     <circle cx="50" cy="62" r="2" fill="#c5a880" opacity="0.8" />
                   </svg>
                 </div>
 
-                {/* Ring 2: Diurnal Frame (Middle Steel Pointer) */}
+                {/* Ring 2: Diurnal Frame */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none">
                   <svg ref={ringRef2} viewBox="0 0 100 100" className="w-full h-full text-[#8E9099] drop-shadow-[0_2px_3px_rgba(0,0,0,0.8)]" style={{ transformOrigin: "center" }}>
                     <circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" strokeWidth="0.3" strokeDasharray="8 4 1 4" opacity="0.3" />
-                    {/* Steel Pointer Needle */}
                     <path d="M 50 50 L 50 16" stroke="#8E9099" strokeWidth="0.8" strokeLinecap="round" />
                     <polygon points="50,14 48.5,18 51.5,18" fill="#8E9099" />
                   </svg>
                 </div>
 
-                {/* Ring 3: Micro-temporal convergence (Inner Green Pointer) */}
+                {/* Ring 3: Inner Green Pointer */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none">
                   <svg ref={ringRef3} viewBox="0 0 100 100" className="w-full h-full text-[#43A047] drop-shadow-[0_1.5px_2px_rgba(0,0,0,0.95)]" style={{ transformOrigin: "center" }}>
                     <circle cx="50" cy="50" r="24" fill="none" stroke="currentColor" strokeWidth="0.2" opacity="0.2" />
-                    {/* Fine Emitter needle */}
                     <line x1="50" y1="50" x2="50" y2="24" stroke="#43A047" strokeWidth="0.6" strokeLinecap="round" />
                     <circle cx="50" cy="24" r="1" fill="#43A047" />
                   </svg>
@@ -685,14 +687,11 @@ export default function App() {
 
                 {/* Sapphire Domed Glass Glare overlay */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-white/[0.015] to-white/[0.08] pointer-events-none z-10" />
-                {/* Circular Specular lens ring reflection */}
                 <div className="absolute inset-[2px] rounded-full border border-white/[0.04] bg-gradient-to-b from-white/[0.03] to-transparent pointer-events-none z-10" />
 
                 {/* Hub Pin Assembly */}
                 <div className="absolute w-7 h-7 rounded-full bg-gradient-to-br from-basalt-600 via-basalt-800 to-basalt-950 border border-basalt-700/60 shadow-[0_3px_6px_rgba(0,0,0,0.9),_inset_0.5px_0.5px_1px_rgba(255,255,255,0.15)] flex items-center justify-center pointer-events-none z-20">
-                  {/* Brass Cap */}
                   <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-br from-[#c5a880] to-[#806c50] shadow-[0_1px_2px_rgba(0,0,0,0.6)] flex items-center justify-center">
-                    {/* Ruby Pivot Jewel */}
                     <div className={`w-1.5 h-1.5 rounded-full transition-all duration-1000 ${
                       timeLeft.isComplete ? "bg-moss shadow-[0_0_4px_#6cad6c]" : "bg-[#43A047] shadow-[0_0_4px_rgba(67,160,71,0.8)]"
                     }`} />
@@ -702,9 +701,9 @@ export default function App() {
               </div>
             </div>
 
-            {/* Elegant Minimal Alignment Label */}
+            {/* Alignment Label */}
             <div className="mt-4 flex flex-col items-center">
-              <span className="font-mono text-[9px] text-sand/60 tracking-widest uppercase">CONVERGENCE ALIGNMENT</span>
+              <span className="font-mono text-[9px] text-sand/60 tracking-widest uppercase">CLOCK DIAL ALIGNMENT</span>
             </div>
           </div>
 
@@ -720,12 +719,12 @@ export default function App() {
             )}
             <span>
               {timeLeft.isComplete 
-                ? "ALIGNMENT COMPLETE: HORIZON SYNCHRONIZED" 
-                : "SYNCHRONIZATION ACTIVE"}
+                ? "COUNTDOWN FINISHED" 
+                : "COUNTDOWN RUNNING"}
             </span>
           </div>
           <div className="tracking-widest">
-            TEMPORAL MEASUREMENT INSTRUMENT
+            LOKIAI COUNTDOWN TIMER
           </div>
         </div>
 
