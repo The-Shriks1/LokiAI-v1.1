@@ -224,8 +224,8 @@ function Delimiter({ blink = false, isRust = false, isComplete = false }: Delimi
 
 // Main App component
 export default function App() {
-  const TARGET_DATE = new Date("2026-07-19T19:00:00");
-  const TOTAL_DURATION_SEC = 24 * 60 * 60; // 24 hours reference frame for percentage calculation
+  const TARGET_DATE = new Date("2026-07-21T19:00:00");
+  const TOTAL_DURATION_SEC = 3 * 24 * 60 * 60; // 3 days reference frame for percentage calculation
   
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -499,7 +499,7 @@ export default function App() {
         {/* Target Info Bar */}
         <div className="flex justify-between items-center text-xs font-mono text-sand/70 pb-1">
           <span>TARGET LAUNCH:</span>
-          <span className="text-ivory font-semibold tracking-wider">19 JULY 2026, 19:00</span>
+          <span className="text-ivory font-semibold tracking-wider">21 JULY 2026, 19:00</span>
         </div>
 
         {/* Tactical Interior Layout (Grid: Left Countdown / Right Astrolabe) */}
