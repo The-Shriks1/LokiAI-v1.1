@@ -493,9 +493,6 @@ export default function App() {
           </div>
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${timeLeft.isComplete ? 'bg-moss animate-pulse' : 'bg-rust animate-pulse'}`} />
-            <span className="font-mono text-[10px] md:text-xs text-sand tracking-[0.15em] font-medium">
-              {timeLeft.isComplete ? "COUNTDOWN COMPLETE" : "CHRONOMETRIC LOCK"}
-            </span>
           </div>
         </div>
 
