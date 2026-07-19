@@ -577,9 +577,9 @@ export default function App() {
             {/* The Waveform Resonance */}
             <div className="relative p-4 bg-basalt-950/30 border border-basalt-800 rounded-lg basalt-well overflow-hidden h-[80px] flex flex-col justify-between">
               <div className="flex justify-between items-center z-10">
-                <span className="font-mono text-[9px] text-sand/80 tracking-widest uppercase">SIGNAL WAVE</span>
+                <span className="font-mono text-[9px] text-sand/80 tracking-widest uppercase">TEMPORAL RESONANCE</span>
                 <span className="font-mono text-[9px] text-rust/80 tracking-widest uppercase">
-                  {timeLeft.isComplete ? "FINISHED" : "COUNTING DOWN"}
+                  {timeLeft.isComplete ? "CONVERGED" : "ACTIVE ALIGNMENT"}
                 </span>
               </div>
               
@@ -703,14 +703,14 @@ export default function App() {
 
             {/* Alignment Label */}
             <div className="mt-4 flex flex-col items-center">
-              <span className="font-mono text-[9px] text-sand/60 tracking-widest uppercase">CLOCK DIAL ALIGNMENT</span>
+              <span className="font-mono text-[9px] text-sand/60 tracking-widest uppercase">CONVERGENCE ALIGNMENT</span>
             </div>
           </div>
 
         </div>
 
         {/* Console Footnotes */}
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-basalt-800 pt-4 font-mono text-[9px] md:text-[10px] text-sand/60 gap-3">
+        <div className="flex justify-start items-center border-t border-basalt-800 pt-4 font-mono text-[9px] md:text-[10px] text-sand/60">
           <div className="flex items-center gap-1.5">
             {timeLeft.isComplete ? (
               <CheckCircle2 size={12} className="text-moss" />
@@ -719,12 +719,9 @@ export default function App() {
             )}
             <span>
               {timeLeft.isComplete 
-                ? "COUNTDOWN FINISHED" 
-                : "COUNTDOWN RUNNING"}
+                ? "ALIGNMENT COMPLETE: HORIZON SYNCHRONIZED" 
+                : "SYNCHRONIZATION ACTIVE"}
             </span>
-          </div>
-          <div className="tracking-widest">
-            LOKIAI COUNTDOWN TIMER
           </div>
         </div>
 
